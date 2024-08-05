@@ -6,12 +6,29 @@ body{
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (min-width: 1850px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+      max-width: 1830px !important;
+  }
+}
+
 .app-container {
   .header-container {
-    .navbar-nav {
+    .btn-login{
+      margin-right: 10px;
+      padding: 0 18px 0 18px;
+    }
+    .btn-sign-up{
+      margin-right: 10px;
+      &:hover{
+        background-color: #0dcaf0;
+        color: #fff;
+      }
+    }
+    .navbar {
+      padding-top: 20px;
       z-index: 10;
-      opacity: 0.5; 
-
+      // opacity: 0.5; 
       .nav-link {
         &.active {
           color: cyan;
@@ -19,7 +36,7 @@ body{
       }
     } 
     .bg-body-tertiary{
-      background-color: gray !important;
+      background-color: rgba(0, 62, 128, 0.7) !important;
     }
   }
 }
