@@ -1,5 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import { Link } from 'react-router-dom';
 
 
 
@@ -7,8 +9,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 
 
 
-
-const SideBar = () => {
+const SideBar = (props) => {
   // return (
   //   <>
   //     <Sidebar>
@@ -23,15 +24,17 @@ const SideBar = () => {
   //     </Sidebar>
   //   </>
   // );
-  const [collapsed, setCollapsed] = React.useState(false);
-  const [toggled, setToggled] = React.useState(false);
-  const [broken, setBroken] = React.useState(false);
-  const [hasImage, setHasImage] = React.useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
+  const [toggled, setToggled] = useState(false);
+  const [broken, setBroken] = useState(false);
+  const [hasImage, setHasImage] = useState(false);
 
-
+  // const { image, collapsed, toggled, handleToggleSidebar } = props;
+  const { collapsed } = props;
   return (
     <div style={{ display: 'flex', height: '100%'}}>
       <Sidebar
+        collapsed={collapsed}
       >
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
           <div style={{ flex: 1, marginBottom: '32px' }}>
@@ -39,55 +42,20 @@ const SideBar = () => {
 
             </div>
             <Menu >
-              <SubMenu
-                label="Charts"
-
-              >
-                <MenuItem> Pie charts</MenuItem>
+              <MenuItem
+                component={<Link to="/admins" />}>
+                DashBoard
+              </MenuItem>
+              <SubMenu label="Features">
+                <MenuItem 
+                  component={<Link to="/admins/manage-users" />}> 
+                  Manage User
+                </MenuItem>
                 <MenuItem> Line charts</MenuItem>
                 <MenuItem> Bar charts</MenuItem>
               </SubMenu>
-              <SubMenu label="Maps" >
-                <MenuItem> Google maps</MenuItem>
-                <MenuItem> Open street maps</MenuItem>
-              </SubMenu>
-              <SubMenu label="Theme" >
-                <MenuItem> Dark</MenuItem>
-                <MenuItem> Light</MenuItem>
-              </SubMenu>
-              <SubMenu label="Components" >
-                <MenuItem> Grid</MenuItem>
-                <MenuItem> Layout</MenuItem>
-                <SubMenu label="Forms">
-                  <MenuItem> Input</MenuItem>
-                  <MenuItem> Select</MenuItem>
-                  <SubMenu label="More">
-                    <MenuItem> CheckBox</MenuItem>
-                    <MenuItem> Radio</MenuItem>
-                  </SubMenu>
-                </SubMenu>
-              </SubMenu>
-              <SubMenu label="E-commerce" >
-                <MenuItem> Product</MenuItem>
-                <MenuItem> Orders</MenuItem>
-                <MenuItem> Credit card</MenuItem>
-              </SubMenu>
             </Menu>
-
-            <div style={{ padding: '0 24px', marginBottom: '8px', marginTop: '32px' }}>
-
-            </div>
-
-            <Menu >
-              <MenuItem  
-              >
-                Calendar
-              </MenuItem>
-              <MenuItem >Documentation</MenuItem>
-              <MenuItem disabled >
-                Examples
-              </MenuItem>
-            </Menu>
+            <div style={{ padding: '0 24px', marginBottom: '8px', marginTop: '32px' }}></div>
           </div>
         </div>
       </Sidebar>

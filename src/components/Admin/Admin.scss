@@ -1,6 +1,19 @@
 .admin-container {
     display: flex;
     .admin-sidebar {
+        .ps-sidebar-root {
+            height: 100vh !important;
+            }
+    }
+    .admin-content{
+        width: 100%;
+        .admin-header{
+            height: 50px;
+            border: 1px solid green;
+        }
 
+        .admin-main{
+            border: 1px solid red;
+        }
     }
 }
