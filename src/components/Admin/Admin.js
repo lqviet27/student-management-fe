@@ -1,7 +1,15 @@
+import SideBar from "./SideBar.js";
+import './Admin.scss';
+
 const Admin = (props) => {
     return (
-        <div>
-            <h1>Admin</h1>
+        <div className="admin-container">
+            <div className="admin-sidebar">
+                <SideBar/>
+            </div>
+            <div className="admin-content">
+                day la content neeeeeeeeeeeee
+            </div>
         </div>
     );
 }
