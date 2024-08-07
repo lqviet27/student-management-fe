@@ -1,12 +1,15 @@
 import ModalCreateUser from "./ModalCreateUser";
+import ModalViewUser from "./ModalViewUser";
 import './ManageUser.scss';
-import axios from "axios";
 import TableUser from "./TableUser";
 import { useEffect, useState } from "react";
 import {getAllUsers} from "../../../services/ApiService";
 
 const ManageUser = (props) => {
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
+    const [showModalViewUser, setShowModalViewUser] = useState(false);
+    const [infoUser, setInfoUser] = useState({});
+
     const [listUsers, setListUsers] = useState([]);
 
     useEffect( () => {
@@ -19,6 +22,11 @@ const ManageUser = (props) => {
         if (res.data && res.data.ec === 0){
             setListUsers(res.data.data)
         }
+    }
+
+    const handleClickBtnView = (dataUser) =>{
+        setShowModalViewUser(true)
+        setInfoUser(dataUser)
     }
 
     return (
@@ -35,12 +43,20 @@ const ManageUser = (props) => {
                         Add new users</button>
                 </div>
                 <div className="table-users-container">
-                    <TableUser listUsers={listUsers} setListUsers={setListUsers}/>
+                    <TableUser 
+                        listUsers={listUsers} 
+                        handleClickBtnView={handleClickBtnView}
+                    />
                 </div>
                 <ModalCreateUser 
                     show={showModalCreateUser}
                     setShow={setShowModalCreateUser}
                     fetchListUsers={fetchListUsers}
+                />
+                <ModalViewUser 
+                    show={showModalViewUser}
+                    setShow={setShowModalViewUser}
+                    infoUser={infoUser}
                 />
             </div>
         </div>

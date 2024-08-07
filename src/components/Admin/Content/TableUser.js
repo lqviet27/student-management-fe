@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import {getAllUsers} from "../../../services/ApiService";
-
+import { Modal } from "bootstrap";
 
 const TableUser = (props) => {
-    const {listUsers, setListUsers} = props;
+    const {listUsers, handleClickBtnView} = props;
 
     //khong code theo cach nay
     /*
@@ -12,9 +10,9 @@ const TableUser = (props) => {
         console.log(res)
     },[])
     */
-    const handleView = (studentDetail) => {
-        console.log(studentDetail)
-    }
+    // const handleView = (studentDetail) => {
+    //     console.log(studentDetail)
+    // }
 
   return (
     <>
@@ -25,6 +23,7 @@ const TableUser = (props) => {
             <th scope="col">Họ đệm</th>
             <th scope="col">Tên</th>
             <th scope="col">Email</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -37,7 +36,7 @@ const TableUser = (props) => {
                             <td>{item.ten}</td>
                             <td>{item.email}</td>
                             <td>
-                                <button className="btn btn-secondary" onClick={() => handleView(item.studentDetail)}>Xem</button>
+                                <button className="btn btn-secondary" onClick={() => handleClickBtnView(item)}>Xem</button>
                                 <button className="btn btn-warning mx-3">Cập nhật</button>
                                 <button className="btn btn-danger">Xóa</button>
                             </td>
