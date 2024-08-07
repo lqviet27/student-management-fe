@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import {getAllUsers} from "../../../services/ApiService";
 
 
 const TableUser = (props) => {
-    const [list, setList] = useState([]);
+    const {listUsers, setListUsers} = props;
 
     //khong code theo cach nay
     /*
@@ -13,16 +12,8 @@ const TableUser = (props) => {
         console.log(res)
     },[])
     */
-    useEffect( () => {
-        fetchList()
-    },[])
-
-    const fetchList = async () => {
-        let res =  await getAllUsers()
-        console.log(res)
-        if (res.data && res.data.ec === 0){
-            setList(res.data.data)
-        }
+    const handleView = (studentDetail) => {
+        console.log(studentDetail)
     }
 
   return (
@@ -37,16 +28,16 @@ const TableUser = (props) => {
           </tr>
         </thead>
         <tbody>
-            {list && list.length > 0 &&
-                list.map( (item,index) => {
+            {listUsers && listUsers.length > 0 &&
+                listUsers.map( (item,index) => {
                     return (
                         <tr key={`table-users-${index}`}>
-                            <th scope="row">{index + 1}</th>
+                            <th scope="row">{item.id}</th>
                             <td>{item.hoDem}</td>
                             <td>{item.ten}</td>
                             <td>{item.email}</td>
                             <td>
-                                <button className="btn btn-secondary">Xem</button>
+                                <button className="btn btn-secondary" onClick={() => handleView(item.studentDetail)}>Xem</button>
                                 <button className="btn btn-warning mx-3">Cập nhật</button>
                                 <button className="btn btn-danger">Xóa</button>
                             </td>
@@ -55,7 +46,7 @@ const TableUser = (props) => {
                 })
             }
             {
-                list && list.length === 0 &&
+                listUsers && listUsers.length === 0 &&
                 <tr>
                     <td colSpan="4" className="text-center">No data</td>
                 </tr>

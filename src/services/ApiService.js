@@ -10,7 +10,9 @@ const postCreateUser =  (email, hoDem, ten, gender, dateOfBirth, phone, address,
     data.append('studentDetail.phoneNum', phone)
     data.append('studentDetail.address', address)
     data.append('studentDetail.facebook', facebook)
-    data.append('imageFile', avatarFile)
+    if (avatarFile) {
+        data.append('imageFile', avatarFile);
+    }
     console.log(data)
     return axios.post('/api/student', data)
 }

@@ -15,9 +15,9 @@ const ModalCreateUser = (props) => {
     setTen("");
     setGender("");
     setDateOfBirth("");
-    setPhone("USER");
+    setPhone("");
     setAddress("");
-    setPreviewImage("");
+    setAvatar(null);
     setFacebook("");
     setPreviewImage("");
   };
@@ -49,57 +49,29 @@ const ModalCreateUser = (props) => {
     const PhonePattern = /^(?:\+84|0)[3-9][0-9]{8}$/;
     return PhonePattern.test(phone);
   }
-  const toBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-      });
-    };
-
-
 
   const handleSubmiCreateUser = async () => {
 
-    // const isValidEmail = validateEmail(email);
-    // if(!isValidEmail){
-    //   toast.error("Email is invalid");
-    //   return;
-    // }
-    // const isValidPhone = validatePhone(phone);
-    // if(!isValidPhone){
-    //   toast.error("Phone is invalid");
-    //   return;
-    // }
-
-    // toast.success("Create user success");
-
-    // let data = {
-    //   email: email,
-    //   password: password,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   userName: userName,
-    //   role: role,
-    //   useImage: image,
-    // };
-    // let res = await axios.post('http://localhost:8080/api/user', data) // -> không gọi trực tiếp api như này mà gọi từ service api
-    //let res = awaitpostCreateUser(email, password, firstName, lastName, userName, role, useImage);
-    // console.log(res)
-    //dựa vào response trả về để xử lý in ra toast tương ứng
-    // let avatar_Base64 =  await toBase64(avatar);
-    // let avatar_Base64 = null;
-    // console.log(dateOfBirth);
-    // console.log(avatar_Base64);
-    // console.log(avatar_Base64.split(',')[1])
-    // console.log(email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatar_Base64);
+    const isValidEmail = validateEmail(email);
+    if(!isValidEmail){
+      toast.error("Email is invalid");
+      return;
+    }
+    const isValidPhone = validatePhone(phone);
+    if(!isValidPhone){
+      toast.error("Phone is invalid");
+      return;
+    }
+    if(avatar === ""){
+      setAvatar(null);
+    }
     let res = await postCreateUser(email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatar);
-    // toast.success("Create user success");
-    // handleClose();
+
     console.log(res)
     if(res.data && res.data.ec === 0){
       toast.success(res.data.em);
+      handleClose();
+      props.fetchListUsers();
     }
     if(res.data && res.data.ec !== 0){
       toast.error(res.data.em);
