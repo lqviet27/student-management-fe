@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import { postCreateUser } from "../../../services/ApiService";
 import { toast } from "react-toastify";
+import _ from "lodash";
 
 const ModalViewUser = (props) => {
   const { show, setShow, infoUser } = props;
@@ -11,7 +12,36 @@ const ModalViewUser = (props) => {
   const handleClose = () => {
     setShow(false);
   };
+  const [email, setEmail] = useState("");
+  const [hoDem, setHoDem] = useState("");
+  const [ten, setTen] = useState("");
+  const [gender, setGender] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [avatar, setAvatar] = useState(null);
+  const [previewImage, setPreviewImage] = useState("");
+  useEffect( () => {
+    console.log("run effect")
+    if(!_.isEmpty(infoUser)){
+      setEmail(infoUser.email);
+      setHoDem(infoUser.hoDem);
+      setTen(infoUser.ten);
+      setGender(infoUser.studentDetail.gender);
+      setDateOfBirth(infoUser.studentDetail.dateOfBirth);
+      setPhone(infoUser.studentDetail.phoneNum);
+      setAddress(infoUser.studentDetail.address);
+      setFacebook(infoUser.studentDetail.facebook);
+      setAvatar(infoUser.studentDetail.avatar);
+      // if(infoUser.studentDetail.avatar){
+      // }
+      setPreviewImage(`data:image/png;base64,${infoUser.studentDetail.avatar}`);
+    }
+  },[infoUser])
 
+
+  console.log("check render")
   return (
     <>
       <Modal
@@ -34,7 +64,7 @@ const ModalViewUser = (props) => {
               <input
                 type="text"
                 className="form-control"
-                value={infoUser.hoDem}
+                value={hoDem}
               />
             </div>
             <div className="col-md-6">
@@ -42,7 +72,7 @@ const ModalViewUser = (props) => {
               <input
                 type="text"
                 className="form-control"
-                value={infoUser.ten}
+                value={ten}
               />
             </div>
             <div className="col-md-12">
@@ -50,14 +80,14 @@ const ModalViewUser = (props) => {
               <input
                 type="email"
                 className="form-control"
-                value={infoUser.email}
+                value={email}
               />
             </div>
             <div className="col-md-6">
               <label className="form-label">Gender</label>
               <select
                 className="form-select"
-                value={infoUser.studentDetail.gender ? 1 : 0}
+                value={gender ? 1 : 0}
               >
                 <option value="">Select Gender</option>
                 <option value={1}>Male</option>
@@ -69,7 +99,7 @@ const ModalViewUser = (props) => {
               <input
                 type="date"
                 className="form-control"
-                value={infoUser.studentDetail.dateOfBirth}
+                value={dateOfBirth}
               />
             </div>
             <div className="col-md-6">
@@ -77,7 +107,7 @@ const ModalViewUser = (props) => {
               <input
                 type="text"
                 className="form-control"
-                value={infoUser.studentDetail.phoneNum}
+                value={phone}
               />
             </div>
             <div className="col-md-6">
@@ -85,7 +115,7 @@ const ModalViewUser = (props) => {
               <input
                 type="text"
                 className="form-control"
-                value={infoUser.studentDetail.facebook}
+                value={facebook}
               />
             </div>
             <div className="col-md-12">
@@ -93,15 +123,15 @@ const ModalViewUser = (props) => {
               <input
                 type="text"
                 className="form-control"
-                value={infoUser.studentDetail.address}
+                value={address}
               />
             </div>
             <div className="col-md-12">
               <label className="form-label">Avatar</label>
             </div>
             <div className="col-md-12 img-preview">
-              {infoUser.studentDetail.avatar ? (
-                <img src={`data:image/png;base64,${infoUser.studentDetail.avatar}`} alt="Image preview"></img>
+              {avatar ? (
+                <img src={previewImage} alt="Image preview"></img>
               ) : (
                 <span>Avatar Preview</span>
               )}
