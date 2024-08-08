@@ -36,4 +36,7 @@ const putUpdateUser =  (id, email, hoDem, ten, gender, dateOfBirth, phone, addre
     return axios.put(`/api/student/${id}`, data)
 }
 
-export {postCreateUser, getAllUsers, putUpdateUser}
+const deleteUser = (id) => {
+    return axios.delete(`/api/student/${id}`)
+}
+export {postCreateUser, getAllUsers, putUpdateUser, deleteUser}
