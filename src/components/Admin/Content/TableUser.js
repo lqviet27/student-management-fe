@@ -1,7 +1,7 @@
 import { Modal } from "bootstrap";
 
 const TableUser = (props) => {
-    const {listUsers, handleClickBtnView} = props;
+    const {listUsers, handleClickBtnView, handleClickBtnUpdate} = props;
 
     //khong code theo cach nay
     /*
@@ -37,7 +37,7 @@ const TableUser = (props) => {
                             <td>{item.email}</td>
                             <td>
                                 <button className="btn btn-secondary" onClick={() => handleClickBtnView(item)}>Xem</button>
-                                <button className="btn btn-warning mx-3">Cập nhật</button>
+                                <button className="btn btn-warning mx-3" onClick={() => handleClickBtnUpdate(item)}>Cập nhật</button>
                                 <button className="btn btn-danger">Xóa</button>
                             </td>
                         </tr>
