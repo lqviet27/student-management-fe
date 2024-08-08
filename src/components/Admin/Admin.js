@@ -11,16 +11,21 @@ const Admin = (props) => {
 
   return (
     <div className="admin-container">
+      
       <div className="admin-sidebar">
         <SideBar collapsed={collapsed} />
       </div>
+      
       <div className="admin-content">
+
         <div className="admin-header">
           <FaBars size={30} onClick={() => setCollapsed(!collapsed)} />
         </div>
+
         <div className="admin-main">
           <Outlet />
         </div>
+
       </div>
       <ToastContainer
         position="top-center"

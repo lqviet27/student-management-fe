@@ -20,6 +20,11 @@ const getAllUsers = () => {
     return axios.get('/api/student/all')
 }
 
+const getAllUsersWithPaginate = (page, limit) => {
+    return axios.get(`/api/student?page=${page}&limit=${limit}`)
+}
+
+
 const putUpdateUser =  (id, email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatarFile) => {
     const data = new FormData()
     data.append('hoDem', hoDem)
@@ -39,4 +44,4 @@ const putUpdateUser =  (id, email, hoDem, ten, gender, dateOfBirth, phone, addre
 const deleteUser = (id) => {
     return axios.delete(`/api/student/${id}`)
 }
-export {postCreateUser, getAllUsers, putUpdateUser, deleteUser}
+export {postCreateUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersWithPaginate}

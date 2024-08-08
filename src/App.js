@@ -8,12 +8,15 @@ function App() {
       <div className='header-container'>
         <Header/> 
       </div>
+
       <div className='main-container'>
-        <div className='sidenav-container'>
-        </div>
+        
+        <div className='sidenav-container'></div>
+
         <div className='app-container'>
           <Outlet/> 
         </div>
+
       </div>
     </div>
   );
