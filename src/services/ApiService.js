@@ -21,7 +21,13 @@ const getAllUsers = () => {
 }
 
 const getAllUsersWithPaginate = (page, limit) => {
-    return axios.get(`/api/student?page=${page}&limit=${limit}`)
+    return axios.get(`/api/student?page=${page}&limit=${limit}`,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
 }
 
 
@@ -44,4 +50,22 @@ const putUpdateUser =  (id, email, hoDem, ten, gender, dateOfBirth, phone, addre
 const deleteUser = (id) => {
     return axios.delete(`/api/student/${id}`)
 }
-export {postCreateUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersWithPaginate}
+
+const postLogin = (userName, password) => {
+    const data = new FormData()
+    data.append('userName', userName)
+    data.append('password', password)
+    return axios.post('/api/auth/signin', data)
+    // return axios.post('/api/auth/signin', {userName, password}) // {userName: userName, password: password} sử dụng www-form-urlencoded
+}
+
+const postSignup = (userName, password) => {
+    const data = new FormData()
+    data.append('userName', userName)
+    data.append('password', password)
+    return axios.post('/api/auth/signup', data)
+    // return axios.post('/api/auth/signin', {userName, password}) // {userName: userName, password: password} sử dụng www-form-urlencoded
+}
+
+
+export {postCreateUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersWithPaginate, postLogin,postSignup}
