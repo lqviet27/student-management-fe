@@ -53,8 +53,30 @@
             display: flex;
             justify-content: space-between; /* Căn chỉnh các phần tử con đều nhau */
             align-items: center;
-        }    
-        
+        } 
+        .loaderIcon{
+            font-family: 14px;
+            margin-bottom: 3px;
+            margin-right: 5px;
+            animation: spin 1s infinite linear ;
+        }   
+        button{
+            &:disabled{
+                background-color: green;
+                color: red;
+                cursor: not-allowed;
+                pointer-events: all !important;
+            }
+        }
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
         @keyframes showSignInForm {
             0%,
             30% {

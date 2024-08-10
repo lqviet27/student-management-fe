@@ -10,6 +10,7 @@ import ManageUser from './components/Admin/Content/ManageUser';
 import DashBoard from './components/Admin/Content/DashBoard';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Singup';
+import PrivateRoute from './routes/PrivateRoute';
 
 
 const Layout = () => {
@@ -19,10 +20,24 @@ const Layout = () => {
 
             <Route path="/" element={<App />}> 
                 <Route index element={<HomePage />} />
-                <Route path="/users" element={<User />} />
+                <Route path="/users" 
+                    element=
+                    {
+                        <PrivateRoute>
+                            <User />
+                        </PrivateRoute>
+                    } 
+                />
             </Route>
 
-            <Route path="/admins" element={<Admin />} >
+            <Route path="/admins" 
+                element=
+                {
+                    <PrivateRoute>
+                        <Admin />
+                    </PrivateRoute>
+                } 
+            >
                 <Route index element={<DashBoard />} />
                 <Route path="manage-users" element={<ManageUser />} />
             </Route>  

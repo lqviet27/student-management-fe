@@ -1,32 +1,45 @@
 import './Login.scss'
+import  { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { Form, Button } from "react-bootstrap";
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { ImSpinner } from "react-icons/im";
+
 import BackgroundImage from "../../assets/background.png";
 import Logo from "../../assets/logo.png";
-import  { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
 import {postLogin} from '../../services/ApiService'
-import { toast } from 'react-toastify';
+import { doLogin } from '../../redux/action/userAction';
+import { set } from 'lodash';
+
+
+
 const Login = () => {
     const [inputUsername, setInputUsername] = useState("");
     const [inputPassword, setInputPassword] = useState("");
   
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-  
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(inputUsername,inputPassword)
+        setIsLoading(true)
         let res = await postLogin(inputUsername,inputPassword)
-        console.log(res)
-        if (res.data && res.data.ec ==0 ){
+        if (res.data && res.data.ec === 0 ){
+            dispatch(doLogin(res.data))
             toast.success(res.data.em)
             localStorage.setItem("token", res.data.data.token)
+            setIsLoading(false)
             navigate("/")
         }
         if(res.data && res.data.ec !== 0){
             toast.error(res.data.em)
+            setIsLoading(false)
         }
+
     };
   
     const handlePassword = () => {};
@@ -78,9 +91,11 @@ const Login = () => {
                         />
                     </Form.Group>
 
-                    <Button className="w-100" variant="primary" type="submit" >
-                        Log In
+                    <Button className="w-100" variant="primary" type="submit" disabled={isLoading} >
+                        {isLoading && <ImSpinner className='loaderIcon'/>}
+                        <span>Log In</span>
                     </Button>
+
                     <div className="form-footer">
                         <Button
                             className="text-muted px-0"
