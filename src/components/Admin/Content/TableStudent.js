@@ -1,12 +1,12 @@
 import { Modal } from "bootstrap";
 
-const TableUser = (props) => {
-    const {listUsers, handleClickBtnView, handleClickBtnUpdate, handleClickBtnDelete} = props;
+const TableStudent = (props) => {
+    const {listStudents, handleClickBtnView, handleClickBtnUpdate, handleClickBtnDelete} = props;
 
     //khong code theo cach nay
     /*
     useEffect(async () => {
-        let res = await getAllUsers()
+        let res = await getAllStudents()
         console.log(res)
     },[])
     */
@@ -27,10 +27,10 @@ const TableUser = (props) => {
           </tr>
         </thead>
         <tbody>
-            {listUsers && listUsers.length > 0 &&
-                listUsers.map( (item,index) => {
+            {listStudents && listStudents.length > 0 &&
+                listStudents.map( (item,index) => {
                     return (
-                        <tr key={`table-users-${index}`}>
+                        <tr key={`table-students-${index}`}>
                             <th scope="row">{item.id}</th>
                             <td>{item.hoDem}</td>
                             <td>{item.ten}</td>
@@ -45,7 +45,7 @@ const TableUser = (props) => {
                 })
             }
             {
-                listUsers && listUsers.length === 0 &&
+                listStudents && listStudents.length === 0 &&
                 <tr>
                     <td colSpan="4" className="text-center">No data</td>
                 </tr>
@@ -56,4 +56,4 @@ const TableUser = (props) => {
   );
 };
 
-export default TableUser;
+export default TableStudent;

@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const TableUserPaginate = (props) => {
-    const {listUsers, handleClickBtnView, handleClickBtnUpdate, handleClickBtnDelete, fetchListUsersWithPaginate, pageCount} = props;
+const TableStudentPaginate = (props) => {
+    const {listStudents, handleClickBtnView, handleClickBtnUpdate, handleClickBtnDelete, fetchListStudentsWithPaginate, pageCount} = props;
 
     const handlePageClick = (event) => {
-        fetchListUsersWithPaginate(+event.selected+1)
+        fetchListStudentsWithPaginate(+event.selected+1)
         props.setCurrentPage(+event.selected+1)
         console.log(
-          `User requested page number ${event.selected+1}`
+          `Student requested page number ${event.selected+1}`
         );
       };
 
@@ -30,10 +30,10 @@ const TableUserPaginate = (props) => {
           </tr>
         </thead>
         <tbody>
-            {listUsers && listUsers.length > 0 &&
-                listUsers.map( (item,index) => {
+            {listStudents && listStudents.length > 0 &&
+                listStudents.map( (item,index) => {
                     return (
-                        <tr key={`table-users-${index}`}>
+                        <tr key={`table-students-${index}`}>
                             <th scope="row">{item.id}</th>
                             <td>{item.hoDem}</td>
                             <td>{item.ten}</td>
@@ -48,7 +48,7 @@ const TableUserPaginate = (props) => {
                 })
             }
             {
-                listUsers && listUsers.length === 0 &&
+                listStudents && listStudents.length === 0 &&
                 <tr>
                     <td colSpan="4" className="text-center">No data</td>
                 </tr>
@@ -82,4 +82,4 @@ const TableUserPaginate = (props) => {
   );
 };
 
-export default TableUserPaginate;
+export default TableStudentPaginate;

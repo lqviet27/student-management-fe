@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
-import { postCreateUser } from "../../../services/ApiService";
+import { putUpdateStudent } from "../../../services/ApiService";
 import { toast } from "react-toastify";
+import _ from "lodash";
 
-const ModalCreateUser = (props) => {
-  const { show, setShow } = props;
 
+const ModalUpdateStudent = (props) => {
+  const { show, setShow, studentUpdate} = props;
   const handleClose = () => {
     setShow(false);
     setEmail("");
@@ -20,6 +21,7 @@ const ModalCreateUser = (props) => {
     setAvatar(null);
     setFacebook("");
     setPreviewImage("");
+    props.resetUpdateStudent() // co the lam cach nay || bo cac setState o tren
   };
 
   const [email, setEmail] = useState("");
@@ -32,6 +34,21 @@ const ModalCreateUser = (props) => {
   const [facebook, setFacebook] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [previewImage, setPreviewImage] = useState("");
+
+  useEffect( () => {
+    if(!_.isEmpty(studentUpdate)){
+        setEmail(studentUpdate.email);
+        setHoDem(studentUpdate.hoDem);
+        setTen(studentUpdate.ten);
+        setGender(studentUpdate.studentDetail.gender);
+        setDateOfBirth(studentUpdate.studentDetail.dateOfBirth);
+        setPhone(studentUpdate.studentDetail.phoneNum);
+        setAddress(studentUpdate.studentDetail.address);
+        setFacebook(studentUpdate.studentDetail.facebook);
+        setAvatar(studentUpdate.studentDetail.avatar);
+        setPreviewImage(`data:image/png;base64,${studentUpdate.studentDetail.avatar}`);
+      }
+  },[studentUpdate])
 
   const handleUploadImage = (event) => {
     if (event.target && event.target.files && event.target.files[0]) {
@@ -50,7 +67,7 @@ const ModalCreateUser = (props) => {
     return PhonePattern.test(phone);
   }
 
-  const handleSubmiCreateUser = async () => {
+  const handleSubmiUpdateStudent = async () => {
 
     const isValidEmail = validateEmail(email);
     if(!isValidEmail){
@@ -63,22 +80,22 @@ const ModalCreateUser = (props) => {
       return;
     }
     if(avatar === ""){
-      setAvatar(null);
+      setAvatar(null)
     }
-    let res = await postCreateUser(email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatar);
+    let res = await putUpdateStudent(studentUpdate.id, email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatar);
 
-    console.log(res)
     if(res.data && res.data.ec === 0){
       toast.success(res.data.em);
-      handleClose();
-      props.setCurrentPage(1)
-      await props.fetchListUsersWithPaginate(1)
-    }
+      handleClose()
+    await props.fetchListStudentsWithPaginate(props.currentPage)
+}
     if(res.data && res.data.ec !== 0){
-      toast.error(res.data.em);
-      handleClose();
+      toast.error(res.data.em)
+      handleClose()
     }
   };
+
+
   return (
     <>
       <Modal
@@ -87,10 +104,10 @@ const ModalCreateUser = (props) => {
         animation={false}
         size="xl"
         backdrop="static"
-        className="modal-add-user"
+        className="modal-add-student"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add new user</Modal.Title>
+          <Modal.Title>Update student</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -127,7 +144,7 @@ const ModalCreateUser = (props) => {
               <label className="form-label">Gender</label>
               <select
                 className="form-select"
-                value={gender}
+                value={gender ? 1 : 0}
                 onChange={(event) => setGender(event.target.value)}
               >
                 <option value="">Select Gender</option>
@@ -197,7 +214,7 @@ const ModalCreateUser = (props) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleSubmiCreateUser()}>
+          <Button variant="primary" onClick={() => handleSubmiUpdateStudent()}>
             Save
           </Button>
         </Modal.Footer>
@@ -205,4 +222,4 @@ const ModalCreateUser = (props) => {
     </>
   );
 };
-export default ModalCreateUser;
+export default ModalUpdateStudent;

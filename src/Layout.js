@@ -6,7 +6,7 @@ import App from './App';
 import User from './components/User/User';
 import Admin from './components/Admin/Admin';
 import HomePage from './components/Home/HomePage';
-import ManageUser from './components/Admin/Content/ManageUser';
+import ManageStudent from './components/Admin/Content/ManageStudent';
 import DashBoard from './components/Admin/Content/DashBoard';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Singup';
@@ -39,7 +39,7 @@ const Layout = () => {
                 } 
             >
                 <Route index element={<DashBoard />} />
-                <Route path="manage-users" element={<ManageUser />} />
+                <Route path="manage-students" element={<ManageStudent />} />
             </Route>  
 
             <Route path="/login" element={<Login />} />

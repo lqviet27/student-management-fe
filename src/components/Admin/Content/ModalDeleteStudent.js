@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { deleteUser } from "../../../services/ApiService";
+import { deleteStudent } from "../../../services/ApiService";
 import { toast } from "react-toastify";
 
-const ModalDeleteUser = (props) => {
-  const {show, setShow, userDelete} = props
+const ModalDeleteStudent = (props) => {
+  const {show, setShow, studentDelete} = props
 
   const handleClose = () => setShow(false);
 
     const handleSubmitDelete = async() => {
-        let res = await deleteUser(userDelete.id);
+        let res = await deleteStudent(studentDelete.id);
 
         if(res.data && res.data.ec === 0){
             toast.success(res.data.em);
             handleClose()
             props.setCurrentPage(1)
-            await props.fetchListUsersWithPaginate(1)
+            await props.fetchListStudentsWithPaginate(1)
         }
         if(res.data && res.data.ec !== 0){
             toast.error(res.data.em)    
@@ -36,7 +36,7 @@ const ModalDeleteUser = (props) => {
             </Modal.Header>
             <Modal.Body>Are you sure delete this student have 
                 <br/>
-                <b>{` id: ${userDelete && userDelete.id ? userDelete.id : 0} , email: ${userDelete && userDelete.email ? userDelete.email : ""}`}</b>
+                <b>{` id: ${studentDelete && studentDelete.id ? studentDelete.id : 0} , email: ${studentDelete && studentDelete.email ? studentDelete.email : ""}`}</b>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
@@ -51,4 +51,4 @@ const ModalDeleteUser = (props) => {
   );
 }
 
-export default ModalDeleteUser;
+export default ModalDeleteStudent;

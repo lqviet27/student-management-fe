@@ -1,6 +1,6 @@
 import axios from "../utils/axiosCustumize";
 
-const postCreateUser =  (email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatarFile) => {
+const postCreateStudent =  (email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatarFile) => {
     const data = new FormData()
     data.append('hoDem', hoDem)
     data.append('ten', ten)
@@ -22,7 +22,7 @@ const postCreateUser =  (email, hoDem, ten, gender, dateOfBirth, phone, address,
     )
 }
 
-const getAllUsers = () => {
+const getAllStudents = () => {
     return axios.get('/api/student/all',
         {
             headers: {
@@ -32,7 +32,7 @@ const getAllUsers = () => {
     )
 }
 
-const getAllUsersWithPaginate = (page, limit) => {
+const getAllStudentsWithPaginate = (page, limit) => {
     return axios.get(`/api/student?page=${page}&limit=${limit}`,
         {
             headers: {
@@ -43,7 +43,7 @@ const getAllUsersWithPaginate = (page, limit) => {
 }
 
 
-const putUpdateUser =  (id, email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatarFile) => {
+const putUpdateStudent =  (id, email, hoDem, ten, gender, dateOfBirth, phone, address, facebook, avatarFile) => {
     const data = new FormData()
     data.append('hoDem', hoDem)
     data.append('ten', ten)
@@ -65,7 +65,7 @@ const putUpdateUser =  (id, email, hoDem, ten, gender, dateOfBirth, phone, addre
     )
 }
 
-const deleteUser = (id) => {
+const deleteStudent = (id) => {
     return axios.delete(`/api/student/${id}`,
         {
             headers: {
@@ -92,4 +92,4 @@ const postSignup = (userName, password) => {
 }
 
 
-export {postCreateUser, getAllUsers, putUpdateUser, deleteUser, getAllUsersWithPaginate, postLogin,postSignup}
+export {postCreateStudent, getAllStudents, putUpdateStudent, deleteStudent, getAllStudentsWithPaginate, postLogin,postSignup}

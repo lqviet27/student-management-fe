@@ -10,26 +10,11 @@ import { Link } from 'react-router-dom';
 
 
 const SideBar = (props) => {
-  // return (
-  //   <>
-  //     <Sidebar>
-  //       <Menu>
-  //         <SubMenu label="Charts">
-  //           <MenuItem> Pie charts </MenuItem>
-  //           <MenuItem> Line charts </MenuItem>
-  //         </SubMenu>
-  //         <MenuItem> Documentation </MenuItem>
-  //         <MenuItem> Calendar </MenuItem>
-  //       </Menu>
-  //     </Sidebar>
-  //   </>
-  // );
-  // const [collapsed, setCollapsed] = useState(false);
+
   const [toggled, setToggled] = useState(false);
   const [broken, setBroken] = useState(false);
   const [hasImage, setHasImage] = useState(false);
 
-  // const { image, collapsed, toggled, handleToggleSidebar } = props;
   const { collapsed } = props;
   return (
     <div style={{ display: 'flex', height: '100%'}}>
@@ -48,8 +33,8 @@ const SideBar = (props) => {
               </MenuItem>
               <SubMenu label="Features">
                 <MenuItem 
-                  component={<Link to="/admins/manage-users" />}> 
-                  Manage User
+                  component={<Link to="/admins/manage-students" />}> 
+                  Manage Student
                 </MenuItem>
                 <MenuItem> Line charts</MenuItem>
                 <MenuItem> Bar charts</MenuItem>
