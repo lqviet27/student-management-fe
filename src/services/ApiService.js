@@ -13,11 +13,23 @@ const postCreateUser =  (email, hoDem, ten, gender, dateOfBirth, phone, address,
     if (avatarFile) {
         data.append('imageFile', avatarFile);
     }
-    return axios.post('/api/student', data)
+    return axios.post('/api/student', data,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
 }
 
 const getAllUsers = () => {
-    return axios.get('/api/student/all')
+    return axios.get('/api/student/all',
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
 }
 
 const getAllUsersWithPaginate = (page, limit) => {
@@ -44,11 +56,23 @@ const putUpdateUser =  (id, email, hoDem, ten, gender, dateOfBirth, phone, addre
     if (avatarFile) {
         data.append('imageFile', avatarFile);
     }
-    return axios.put(`/api/student/${id}`, data)
+    return axios.put(`/api/student/${id}`, data,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
 }
 
 const deleteUser = (id) => {
-    return axios.delete(`/api/student/${id}`)
+    return axios.delete(`/api/student/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
 }
 
 const postLogin = (userName, password) => {
