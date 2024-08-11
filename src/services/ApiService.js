@@ -91,5 +91,15 @@ const postSignup = (userName, password) => {
     // return axios.post('/api/auth/signin', {userName, password}) // {userName: userName, password: password} sử dụng www-form-urlencoded
 }
 
+const postLogout = (username) =>{
+    return axios.post(`/api/user/logout/${username}`,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
+}
 
-export {postCreateStudent, getAllStudents, putUpdateStudent, deleteStudent, getAllStudentsWithPaginate, postLogin,postSignup}
+
+export {postCreateStudent, getAllStudents, putUpdateStudent, deleteStudent, getAllStudentsWithPaginate, postLogin,postSignup, postLogout}
