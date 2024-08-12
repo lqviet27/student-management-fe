@@ -8,8 +8,13 @@ import {postLogout} from '../../services/ApiService'
 import { useDispatch } from 'react-redux';
 import { doLogout } from '../../redux/action/userAction';
 import { toast } from 'react-toastify';
+import { Modal } from 'bootstrap';
+import ModalChangePassword from './ModalChangePassword';
+import { useState } from 'react';
 
 const Header =  () => {
+  const [showModalChangePassword, setShowModalChangePassword] = useState(false)
+
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const isAuthenticated = useSelector(state => state.user.isAuthenticated)
@@ -32,7 +37,13 @@ const Header =  () => {
       toast.success(res.data.em)
     }
   }
+  const handleChangePassword = () => {
+    console.log('change password')
+    setShowModalChangePassword(true)
+  }
   return (
+    <div>
+
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <NavLink to="/" className='navbar-brand'>My Web</NavLink>
@@ -47,6 +58,7 @@ const Header =  () => {
             <div>
               <NavDropdown title="Options" id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={() => handleLogout()} >Log out</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => handleChangePassword()}>Change Password</NavDropdown.Item>
                 <NavDropdown.Item >Profile</NavDropdown.Item>
               </NavDropdown> 
             </div>
@@ -61,6 +73,13 @@ const Header =  () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <ModalChangePassword
+      showModalChangePassword={showModalChangePassword}
+      setShowModalChangePassword={setShowModalChangePassword}
+      account={account}
+    />
+    </div>
+
   );
 }
 

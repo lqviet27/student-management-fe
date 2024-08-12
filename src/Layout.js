@@ -11,6 +11,7 @@ import DashBoard from './components/Admin/Content/DashBoard';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Singup';
 import PrivateRoute from './routes/PrivateRoute';
+import ManageUser from './components/Admin/Content/ManageUser';
 
 
 const Layout = () => {
@@ -33,13 +34,14 @@ const Layout = () => {
             <Route path="/admins" 
                 element=
                 {
-                    <PrivateRoute>
+                    // <PrivateRoute>
                         <Admin />
-                    </PrivateRoute>
+                    // </PrivateRoute>
                 } 
             >
                 <Route index element={<DashBoard />} />
                 <Route path="manage-students" element={<ManageStudent />} />
+                <Route path="manage-users" element={<ManageUser />} />
             </Route>  
 
             <Route path="/login" element={<Login />} />
