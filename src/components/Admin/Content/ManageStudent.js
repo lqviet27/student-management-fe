@@ -77,7 +77,6 @@ const ManageStudent = (props) => {
                         Add new student</button>
                 </div>
                 <div className="table-students-container">
-
                     <TableStudentPaginate
                         listStudents={listStudents} 
                         handleClickBtnView={handleClickBtnView}

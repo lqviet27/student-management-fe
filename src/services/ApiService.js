@@ -100,6 +100,87 @@ const postLogout = (username) =>{
         }
     )
 }
+const getAllUsersWithPaginate = (page, limit) => {
+    return axios.get(`/api/user?page=${page}&limit=${limit}`,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
+}
+
+const postCreateUser = (username, password, role) => {
+    const data = new FormData()
+    data.append('userName', username)
+    data.append('password', password)
+    data.append('role', ("ROLE_" + role))
 
 
-export {postCreateStudent, getAllStudents, putUpdateStudent, deleteStudent, getAllStudentsWithPaginate, postLogin,postSignup, postLogout}
+    for (let pair of data.entries()) {
+        console.log(pair[0] + ': ' + pair[1])
+    }
+
+    return axios.post(`/api/user`, data,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
+}
+
+const putUpdateUser =  (id, username, password, role) => {
+    const data = new FormData()
+    data.append('userName', username)
+    data.append('password', password)
+    data.append('role', ("ROLE_" + role))
+
+    return axios.put(`/api/user/${id}`, data,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
+}
+
+const deleteUser = (id) => {
+    return axios.delete(`/api/user/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
+}
+
+const putChangePassword = (username, oldPassword, newPassword) => {
+    const data = new FormData()
+    data.append('oldPassword', oldPassword)
+    data.append('newPassword', newPassword)
+
+    return axios.put(`/api/user/change-password/${username}`, data,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    )
+}
+
+export {
+    postCreateStudent,
+    getAllStudents, 
+    putUpdateStudent,
+    deleteStudent,
+    getAllStudentsWithPaginate,
+    postLogin,
+    postSignup,
+    postLogout,
+    getAllUsersWithPaginate,
+    postCreateUser,
+    putUpdateUser,
+    deleteUser,
+    putChangePassword
+}

@@ -31,11 +31,15 @@ const SideBar = (props) => {
                 component={<Link to="/admins" />}>
                 DashBoard
               </MenuItem>
-              <SubMenu label="Features">
-                <MenuItem 
+              <MenuItem 
                   component={<Link to="/admins/manage-students" />}> 
                   Manage Student
-                </MenuItem>
+              </MenuItem>
+              <MenuItem 
+                  component={<Link to="/admins/manage-users" />}> 
+                  Manage User
+              </MenuItem>
+              <SubMenu label="Features">
                 <MenuItem> Line charts</MenuItem>
                 <MenuItem> Bar charts</MenuItem>
               </SubMenu>
